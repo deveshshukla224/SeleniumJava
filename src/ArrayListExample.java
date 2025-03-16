@@ -1,3 +1,4 @@
+import org.omg.CORBA.TIMEOUT;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -5,8 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ArrayListExample {
 
@@ -17,17 +20,29 @@ public class ArrayListExample {
 		WebDriver driver = new ChromeDriver();
 		// maximize window
 		driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 		driver.get("https://rahulshettyacademy.com/seleniumPractise/");
 		// timeout for 2 seconds
-		Thread.sleep(2000);
-
 		//create an array of item which needs to added in cart instead of hard coding something in loops
 		// we just need to update value in one place and everything is good
 		// initially we have given array instead of arrayList because array take less space in memory
         String [] expectedViggies = {"Beetroot","Brinjal","Tomato"};
-		int countExpectedVeggies = expectedViggies.length;
+        addItems(driver,expectedViggies);
+		driver.findElement(By.cssSelector("img[alt='Cart']")).click();
+		driver.findElement(By.xpath("//button[text()='PROCEED TO CHECKOUT']")).click();
+		driver.findElement(By.cssSelector("input.promoCode")).sendKeys("rahulsheetyacademy");
+		//promo_code_input.sendKeys("rahulshettyacademy");
+//		String applied_code_value = driver.findElement(By.cssSelector("input.promoCode")).getText();
+//		System.out.println("Applied code value is "+applied_code_value);
+		driver.findElement(By.cssSelector("button.promoBtn")).click();
+		driver.close();
+
+	}
+
+	public static void addItems(WebDriver driver, String [] expectedViggies) throws InterruptedException {
 		int item_added_in_cart = 0;
-        //find name of all products
+		int countExpectedVeggies = expectedViggies.length;
+		//find name of all products
 		List<WebElement> product_names = driver.findElements(By.cssSelector("h4.product-name"));
 		//loop over received list of items of product name
 		//size() is used get length of arrayList
@@ -49,15 +64,12 @@ public class ArrayListExample {
 				// instead of reallying on text so should pass some generic xpath
 				//driver.findElements(By.xpath("//button[text()='ADD TO CART']")).get(i).click();
 				driver.findElements(By.xpath("//div[@class='product-action']/button")).get(i).click();
-                item_added_in_cart++;
+				item_added_in_cart++;
 				//increase item in cart after every click and once item in cart matches with count of expected veggies exit the for loop using break
 				Thread.sleep(2000);
 				if (countExpectedVeggies == item_added_in_cart) break;
-            }
+			}
 		}
-		Thread.sleep(4000);
-		driver.close();
-
 	}
 
 }

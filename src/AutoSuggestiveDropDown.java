@@ -9,7 +9,7 @@ public class AutoSuggestiveDropDown {
 
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
-		System.setProperty("webdriver.chrome.driver", "/home/devesh-ssd/Downloads/chromedriver-linux64/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		//maximize window
 		driver.manage().window().maximize();
@@ -25,6 +25,7 @@ public class AutoSuggestiveDropDown {
         	if(option.getText().equalsIgnoreCase("india")){
         		option.click();
         		System.out.println("India got selected");
+				Thread.sleep(3000);
         		System.out.println("Selected value is :"+driver.findElement(By.id("autosuggest")).getText());
         		break;
         	}

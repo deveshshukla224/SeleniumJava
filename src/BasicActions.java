@@ -8,7 +8,7 @@ public class BasicActions {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.setProperty("webdriver.chrome.driver", "/home/devesh-ssd/Downloads/chromedriver-linux64/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		//maximize window
 		driver.manage().window().maximize();

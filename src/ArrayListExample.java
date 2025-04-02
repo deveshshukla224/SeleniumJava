@@ -1,22 +1,21 @@
-import org.omg.CORBA.TIMEOUT;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 public class ArrayListExample {
 
-    private static final Logger log = LoggerFactory.getLogger(ArrayListExample.class);
+
 
     public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stubWebDriver driver = new ChromeDriver()
+		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		// maximize window
 		driver.manage().window().maximize();

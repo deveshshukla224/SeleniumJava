@@ -5,6 +5,7 @@ public class DropDownLooping {
 
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://rahulshettyacademy.com/dropdownsPractise/");

@@ -1,3 +1,8 @@
 /bin/
 .idea/
 /target/
+/.settings/
+/.vscode/
+.metadata/
+.settings/
+

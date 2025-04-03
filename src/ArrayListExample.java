@@ -6,11 +6,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.concurrent.TimeUnit;
 
 public class ArrayListExample {
-
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -19,7 +21,8 @@ public class ArrayListExample {
 		WebDriver driver = new ChromeDriver();
 		// maximize window
 		driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
 		driver.get("https://rahulshettyacademy.com/seleniumPractise/");
 		// timeout for 2 seconds
 		//create an array of item which needs to added in cart instead of hard coding something in loops
@@ -29,12 +32,18 @@ public class ArrayListExample {
         addItems(driver,expectedViggies);
 		driver.findElement(By.cssSelector("img[alt='Cart']")).click();
 		driver.findElement(By.xpath("//button[text()='PROCEED TO CHECKOUT']")).click();
-		driver.findElement(By.cssSelector("input.promoCode")).sendKeys("rahulsheetyacademy");
-		//promo_code_input.sendKeys("rahulshettyacademy");
-//		String applied_code_value = driver.findElement(By.cssSelector("input.promoCode")).getText();
-//		System.out.println("Applied code value is "+applied_code_value);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.promoCode")));
+		driver.findElement(By.cssSelector("input.promoCode")).sendKeys("rahulshettyacadem");
 		driver.findElement(By.cssSelector("button.promoBtn")).click();
-		driver.close();
+		//promo_code_input.sendKeys("rahulshettyacademy");
+
+		//WebElement applied_code_value = driver.findElement(By.cssSelector("span.promoInfo"));
+		WebElement code_applied_element = wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("span.promoInfo"))));
+		String message = code_applied_element.getText();
+		System.out.println("Applied code value is "+message);
+
+		driver.quit();
+
 
 	}
 
